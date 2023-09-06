@@ -1,10 +1,13 @@
 import Input from "../../components/input"
 import { Link } from "react-router-dom"
+import Button from "../../components/button"
 
 export default function Login(){
     return (
         <div className = 'flex justify-center items-center h-full'>
             <form className="flex flex-col gap-4 w-full">
+
+                <h1 className = 'text-center text-2xl mb-4 text-blue-600 font-bold'>Login</h1>
                 <Input.Root>
                     <Input.Label label = 'Nome de usuário' />
                     <Input.Main 
@@ -30,6 +33,10 @@ export default function Login(){
                 >
                     Criar uma conta
                 </Link>
+
+                <Button.Root>
+                    <Button.Label label = 'Entrar'/>
+                </Button.Root>
                 
                 
             </form>

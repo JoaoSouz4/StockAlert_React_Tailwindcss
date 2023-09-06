@@ -4,7 +4,7 @@ interface ButtonLabelProps {
 
 export function ButtonLabel({label}: ButtonLabelProps){
     return(
-        <label>
+        <label className = 'text-white font-bold'>
             {label}
         </label>
     )

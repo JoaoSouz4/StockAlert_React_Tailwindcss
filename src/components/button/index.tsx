@@ -5,3 +5,5 @@ const Button = {
     Root: ButtonRoot,
     Label: ButtonLabel,
 }
+
+export default Button;
