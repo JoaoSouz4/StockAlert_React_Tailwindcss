@@ -6,7 +6,7 @@ import {categoriesArray as array} from "./categoriesArray"
 
 export function Categories(){
     return(
-        <div className = 'w-full '>
+        <div className = 'w-full'>
             <Title.Root>
                 <Title.Icon icon = {BiSolidCategory} />
                 <TitleText text = 'Categorias' />

@@ -4,7 +4,7 @@ import List from "./List";
 
 export default function Home(){
     return (
-        <div className = '' >
+        <div className = 'flex flex-col h-full' >
             <Categories />
             <List />
         </div>

@@ -5,7 +5,7 @@ import {AiOutlineUser} from 'react-icons/ai';
 
 export function MenuBottom (){
     return(
-        <div className = 'z-40 sticky bottom-0  p-4 border-t border-blue-400 w-full bg-white'>
+        <div className = ' p-4 border-t border-blue-400 w-full bg-white'>
             <nav className = ''>
                 <ul className = 'flex justify-around w-full'>
                     <li className = 'border border-blue-400 rounded-full w-[3rem] h-[3rem] flex justify-center items-center'>
