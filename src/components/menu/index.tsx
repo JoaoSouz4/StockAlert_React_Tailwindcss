@@ -1,5 +1,3 @@
-import { MenuBottom } from "./menuBottom";
-import logo from '../../assets/img/logo.png';
 import {RiMenu4Fill} from 'react-icons/ri';
 
 export default function Menu(){
