@@ -1,4 +1,3 @@
-import Title from "../../components/title"
 import { Categories } from "./Categories";
 import List from "./List";
 
