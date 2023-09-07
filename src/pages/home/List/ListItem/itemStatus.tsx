@@ -11,7 +11,7 @@ export function ItemStatus({status}: {status: string}){
         }
     }, [])
     return(
-        <div className = {nameStatus == 'Poucas unidades' ? 'text-yellow-400': 'text-red-700'}>
+        <div className = {nameStatus == 'Poucas unidades' ? 'text-yellow-400 text-sm': 'text-red-700 text-sm'}>
             {nameStatus}
         </div>
     )

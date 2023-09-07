@@ -11,6 +11,7 @@ interface DropDownButtonProps {
 export function DropDownButton({label, onAction, styleButton, icon: Icon}: DropDownButtonProps){
     return(
         <Button.Root
+            onAction={onAction}
             style= {styleButton}>
             {label && <Button.Label label = {label} />}
             {Icon && <Icon className = 'text-blue-600'/>}

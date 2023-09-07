@@ -15,11 +15,6 @@ export default function List(){
                     <ListItem name = 'A32' user = 'joao' dataRegister={date} status = 'few' />
                     <ListItem name = 'A32' user = 'joao' dataRegister={date} status = 'few' />
                     <ListItem name = 'A32' user = 'joao' dataRegister={date} status = 'few' />
-        
-
-
-            
-       
                 </div>
             </div>
         </div>

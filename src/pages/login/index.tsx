@@ -34,7 +34,7 @@ export default function Login(){
                     Criar uma conta
                 </Link>
 
-                <Button.Root>
+                <Button.Root style = 'default' onAction={() => {}}>
                     <Button.Label label = 'Entrar'/>
                 </Button.Root>
                 
