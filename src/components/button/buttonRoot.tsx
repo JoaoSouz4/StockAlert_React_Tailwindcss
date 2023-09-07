@@ -1,4 +1,5 @@
 import {ReactNode} from 'react'
+import React from 'react'
 
 export interface ButtonRootProps {
     children: ReactNode
@@ -6,9 +7,11 @@ export interface ButtonRootProps {
     onAction: () => void
 }
 
+
 export function ButtonRoot({children, style, onAction}: ButtonRootProps){
 
-    const handleClick = () => {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         onAction();
     }
     return(

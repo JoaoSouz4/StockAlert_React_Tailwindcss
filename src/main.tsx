@@ -8,7 +8,7 @@ import {
 import Home from './pages/home/index.tsx';
 import RegisterProduct from './pages/register/index.tsx';
 import Login from './pages/login/index.tsx';
-
+import { FormRegisterProvider } from './context/formRegister/index.tsx';
 const router = createBrowserRouter(
   [
     {
@@ -23,7 +23,11 @@ const router = createBrowserRouter(
         },
         {
           path: '/register',
-          element: (<RegisterProduct />)
+          element: (
+            <FormRegisterProvider>
+              <RegisterProduct />
+            </FormRegisterProvider>
+          )
         },
         {
           path: '/login',

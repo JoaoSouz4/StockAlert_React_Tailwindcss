@@ -2,15 +2,17 @@ import Input from "../input";
 
 interface DropDownInputProps {
     placeholder: string,
-    onChangeAction: () => void,
+    onChangeAction: (e: React.ChangeEvent<HTMLInputElement>) => void,
     type: string,
+    value: any
 }
 
-export function DropDownInput ({placeholder, onChangeAction, type}: DropDownInputProps){
+export function DropDownInput ({onChangeAction, type, value}: DropDownInputProps){
     return (
         <Input.Root>
-            <Input.Main 
-                placeholder = {placeholder}
+            <Input.Main
+                value = {value}
+                isDisabled = {true}
                 onChangeAction = {onChangeAction}
                 type = {type}
             />
