@@ -5,16 +5,18 @@ interface ItemProps {
     createdAt: Date,
     registedBy: string,
     status: string,
-    name: string
+    name: string,
 }
 
-
-
 export function ListItem({createdAt, registedBy, status, name}: ItemProps){
-    
+
+
     const newD = new Date(createdAt);
+
     return (
-        <div className = 'relative px-4 py-2 rounded-xl bg-white shadow shadow-3xl'>
+        <div 
+            className = 'relative px-4 py-2 rounded-xl bg-white shadow shadow-3xl'
+        >
             <div className = 'flex justify-end mb-3'>
                 <FiMoreHorizontal />
             </div>

@@ -19,7 +19,7 @@ export function Categories(){
                                 <OptionCategorie
                                     key = {item.id}
                                     label= {item.name}
-                                    action = {item.action}
+                                    categorie = {item.categorie}
                                 />
                             )
                         })

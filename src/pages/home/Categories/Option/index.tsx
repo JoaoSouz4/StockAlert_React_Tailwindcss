@@ -1,11 +1,23 @@
+import {useContext} from 'react'
+import { ListContext } from '../../../../context/ListContext'
+
 interface OptionCategorieProps {
     label: string,
-    action: () => void,
+    categorie: string,
 }
 
-export function OptionCategorie({label, action}: OptionCategorieProps){
+export function OptionCategorie({label, categorie}: OptionCategorieProps){
+
+    const {buildActions} = useContext(ListContext);
+
     const handleClick = () => {
-        action();
+        switch (categorie){
+            case 'cape': return buildActions?.showcapes()
+            case 'mobileFilm': return buildActions?.showmobileFilms()
+            case 'cable': return buildActions?.showCables()
+            case 'accessorie': return buildActions?.showAcessories()
+            case 'display': return buildActions?.showDisplays()
+        }
     }
     return (
         <div

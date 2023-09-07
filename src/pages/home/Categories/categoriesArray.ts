@@ -1,46 +1,38 @@
 interface categoriesArrayProps {
     name: string,
     id: number,
-    action: () => void,
+    categorie: string,
 }
 
 export const categoriesArray: categoriesArrayProps[] = [
     {
         id: 0,
         name: 'Capinhas',
-        action: () => {
-            console.log('capinhas')
-        }
+        categorie: 'cape'
     },
 
     {
         id: 1,
         name: 'Películas',
-        action: () => {
-            console.log('películas')
-        },
+        categorie: 'mobileFilm'
     },
     {
         id: 2,
         name: 'Cabos',
-        action: () => {
-            console.log('capinhas')
-        }
+        categorie: 'cable'
+
     },
 
     {
         id: 3,
         name: 'Acessórios',
-        action: () => {
-            console.log('películas')
-        },
+        categorie: 'accessorie'
+
     },
     {
         id: 4,
         name: 'Displays',
-        action: () => {
-            console.log('capinhas')
-        }
+        categorie: 'display'
     },
 ];
 
