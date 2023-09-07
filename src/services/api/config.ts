@@ -1,0 +1,1 @@
+export const urldefault = 'http://localhost:8181';
