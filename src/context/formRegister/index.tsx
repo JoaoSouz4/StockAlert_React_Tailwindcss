@@ -45,7 +45,7 @@ export function FormRegisterProvider({children}: {children: ReactNode}){
         },
 
         submit: () => {
-            registerProduct(formRegister).then(res => {
+            registerProduct(formRegister).then(() => {
                 setFormRegister({status: '', name: '', categorie: ''})
             })
         }
