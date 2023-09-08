@@ -29,10 +29,7 @@ export default function RegisterProduct(){
                     <DropDown.Root>
                         <DropDown.label label = 'Categoria'/>
                         <DropDown.Input
-                            value = {formRegister?.categorie}
-                            placeholder="selecione..."
                             type = 'text'
-                            onChangeAction={() => {}}
                         />
                         <DropDown.Button 
                             styleButton="leaked"
@@ -51,17 +48,19 @@ export default function RegisterProduct(){
                     <Radio.Root>
                         <Radio.Input 
                             label = 'Poucas unidades'
+                            value = 'few'
                             group="status"
                         />
                         <Radio.Input 
                             label = 'Em falta'
+                            value = 'empty'
                             group="status"
                         />
                     </Radio.Root>
 
                     <Button.Root 
                         style = 'default'
-                        onAction={() => {console.log(formRegister)}}
+                        onAction={() => {buildActions?.submit()}}
                     >
                         <Button.Label label= 'Registrar' />
                     </Button.Root>

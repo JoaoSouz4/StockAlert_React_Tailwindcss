@@ -1,21 +1,25 @@
-import Input from "../input";
+import { DropDownContext } from "../../context/DropDownContext";
+import {useContext} from 'react';
 
-interface DropDownInputProps {
-    placeholder: string,
-    onChangeAction: (e: React.ChangeEvent<HTMLInputElement>) => void,
+
+interface DropDownInputMainlProps {
     type: string,
-    value: any
+    placeholder?: string,
+    isDisabled?: boolean,
+    value?: any
 }
 
-export function DropDownInput ({onChangeAction, type, value}: DropDownInputProps){
-    return (
-        <Input.Root>
-            <Input.Main
-                value = {value}
-                isDisabled = {true}
-                onChangeAction = {onChangeAction}
+export function DropDownInput ({type, placeholder, isDisabled}: DropDownInputMainlProps){
+
+    const {dropdownState} = useContext(DropDownContext);
+        return(
+            <input
+                value = {dropdownState?.label}
+                disabled = {isDisabled}
+                className = 'w-full bg-white border border-blue-400 rounded-full p-3 focus:outline-blue-600'
                 type = {type}
+                onChange={ () => {console.log('lllllll')}}
+                placeholder = {placeholder}
             />
-        </Input.Root>
-    )
+        )
 }
