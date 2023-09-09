@@ -1,11 +1,11 @@
 import { ReactNode, useState, createContext } from "react";
-
+import {  loginUser } from "../../services/api/post/login";
 
 interface Actions {
     setName: (name: string) => void,
     setPass: (paass: string) => void,
     changePassVisibility: () => void,
-    login: () => void
+    login: () => void,
 }
 
 interface ContextValues {
@@ -23,6 +23,7 @@ const defaultState: DefaultState = {
     pass: '',
     passVisibility: false,
 }
+
 
 export const LoginContext = createContext<ContextValues>({
     login: defaultState,
@@ -44,7 +45,10 @@ export function LoginProvider({children}: {children: ReactNode}){
         setName: (name: string) => setLogin({...login, userName: name}),
         setPass: (pass: string) => setLogin({...login, pass: pass}),
         changePassVisibility: () => {setLogin({...login, passVisibility: !login.passVisibility})},
-        login: () => {console.log('faz ae o login')}
+        login: () =>{
+            loginUser(login)
+                .then(res => console.log(res))
+        }
 
     }
     return (

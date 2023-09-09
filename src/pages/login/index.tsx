@@ -31,7 +31,7 @@ export default function Login(){
                             placeholder = 'Digite sua senha...'
                             onChangeAction={(e) => {loginActions?.setPass(e.target.value)}}
                             type= {
-                                login?.passVisibility? 'password' : 'text'
+                                login?.passVisibility? 'text' : 'password'
                             }
                         />
 
