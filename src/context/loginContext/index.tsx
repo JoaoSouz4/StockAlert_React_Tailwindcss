@@ -1,5 +1,8 @@
-import { ReactNode, useState, createContext } from "react";
+import { ReactNode, useState, createContext, useContext } from "react";
 import {  loginUser } from "../../services/api/post/login";
+import { AuthContext } from "../AuthContext";
+import { TokenContext } from "../TokenContext";
+
 
 interface Actions {
     setName: (name: string) => void,
@@ -40,6 +43,7 @@ export const LoginContext = createContext<ContextValues>({
 export function LoginProvider({children}: {children: ReactNode}){
 
     const [login, setLogin] = useState(defaultState);
+    const {tokenActions} = useContext(TokenContext);
 
     const loginActions: Actions = {
         setName: (name: string) => setLogin({...login, userName: name}),
@@ -47,7 +51,11 @@ export function LoginProvider({children}: {children: ReactNode}){
         changePassVisibility: () => {setLogin({...login, passVisibility: !login.passVisibility})},
         login: () =>{
             loginUser(login)
-                .then(res => console.log(res))
+                .then(res => {
+                    if(res.isSucess){
+                        tokenActions.setUserToken(res.dataRequest.token)
+                    }
+                })
         }
 
     }

@@ -7,14 +7,19 @@ import RegisterProduct from './pages/register/index.tsx';
 import Login from './pages/login/index.tsx';
 import { FormRegisterProvider } from './context/formRegister/index.tsx';
 import { LoginProvider } from './context/loginContext/index.tsx';
-
+import { AuthProvider } from './context/AuthContext/index.tsx';
+import { TokenProvider } from './context/TokenContext/index.tsx';
 
 const router = createBrowserRouter(
   [
     {
       path: '/',
       element: (
-        <App />
+        <TokenProvider>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </TokenProvider>
       ),
       children: [
         {

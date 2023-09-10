@@ -1,11 +1,13 @@
 export interface DefaultStateProps  {
     isAuthenticated: boolean,
     userName: string,
-    token: string,
+    idUser: string
+    isLoad: boolean
 }
 
 export const defaultState: DefaultStateProps = {
     isAuthenticated: false,
     userName: '',
-    token: '',
+    idUser: '',
+    isLoad: true
 }

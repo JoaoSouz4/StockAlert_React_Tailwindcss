@@ -1,21 +1,44 @@
-// import {useState, useEffect, ReactNode, createContext} from 'react';
-// import { DefaultStateProps, defaultState } from './defaultState';
-// import { getToken } from '../../services/api/getToken';
-
-// export const AuthContext = createContext({
-//     authState: defaultState,
-//     AuthActions: 
-// });
+import {useState, useEffect, ReactNode, createContext, useContext} from 'react';
+import { defaultState } from './defaultState';
+import { ActionType } from './ActionsType';
+import { actions } from './Actions';
+import { TokenContext } from '../TokenContext';
 
 
+export const AuthContext = createContext({
+    authState: defaultState,
+    AuthActions: actions,
+});
 
-// export function AuthProvider({children}: {children: ReactNode}){
+export function AuthProvider({children}: {children: ReactNode}){
 
-//     const [authState, setAuthState] = useState(defaultState);
+    const [authState, setAuthState] = useState(defaultState);
+
+    const  {tokenState} = useContext(TokenContext);
+
+    const AuthActions : ActionType = {
+        logout: () => {},
+        signIn: () => {
+            setAuthState({
+                userName: tokenState.tokenDecode.user,
+                isAuthenticated: true,
+                idUser: tokenState.tokenDecode.id,
+                isLoad: false
+            })
+        },
+    }
+
+    useEffect(() => {
+        console.log('to aqs')
+        if(tokenState.isValid){
+            AuthActions.signIn();
+        }
+    }, [tokenState.isValid])
+
    
-//     return (
-//         <AuthContext.Provider value = {{authState}}>
-//             {children}
-//         </AuthContext.Provider>
-//     )
-// }
+    return (
+        <AuthContext.Provider value = {{authState, AuthActions}}>
+            {children}
+        </AuthContext.Provider>
+    )
+}
