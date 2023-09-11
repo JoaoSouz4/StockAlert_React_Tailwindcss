@@ -42,7 +42,7 @@ export function TokenProvider({children}: {children: ReactNode}){
         if(hasToken){
             return tokenActions.setUserToken(hasToken)
         } else {
-            return setTokenState({...tokenState, findingToken: false})
+            return setTokenState({...tokenState, findingToken: false, isValid: false})
         }
         
     }, [])

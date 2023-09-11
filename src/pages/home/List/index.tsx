@@ -5,12 +5,12 @@ import Spinner from "../../../components/spinner";
 
 
 export default function List(){
-    const {list} = useContext(ListContext);
+    const {list, isFetching} = useContext(ListContext);
 
     return(
         
         <div className = 'bg-slate-200 rounded-xl w-full h-full p-2 overflow-hidden'>
-            {!list ? 
+            {!list || isFetching? 
                 <div className = 'wull h-full'>
                     <Spinner />
                 </div> 

@@ -1,10 +1,10 @@
 import {AiOutlineClear} from 'react-icons/ai';
 import {useContext} from 'react';
 import { ListContext } from '../../../context/ListContext';
-
+import Spinner from '../../../components/spinner';
 export function Interface (){
 
-    const {amount} = useContext(ListContext)
+    const {amount, isFetching} = useContext(ListContext)
 
     return (
         <div className = 'w-full flex justify-between p-2'>
@@ -13,8 +13,10 @@ export function Interface (){
                 <label className = 'text-blue-700 font-bold text-sm'>limpar Lista</label>
             </div>
 
-            <div className = 'text-slate-400'>
-                Total: <span className = 'text-blue-500'>{amount}</span>
+            <div className = 'text-slate-400 flex gap-1'>
+                Total: <span className = 'text-blue-500'>
+                    {isFetching ? <Spinner size = '2'/> :amount}
+                </span>
             </div>
         </div>
     )

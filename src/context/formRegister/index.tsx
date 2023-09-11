@@ -1,10 +1,12 @@
-import {createContext, useState, ReactNode} from 'react';
+import {createContext, useState, ReactNode, useContext} from 'react';
 import { registerProduct } from '../../services/api/post/regiterProduct';
+import { AuthContext } from '../AuthContext';
 
 interface FormRegisterProps {
     name: string,
     categorie: string,
-    status: string
+    status: string,
+    registedBy: string
 }
 
 interface BuildActionProps {
@@ -21,16 +23,18 @@ interface ContextProps {
 }
 
 export const FormRegisterContext = createContext<ContextProps>({
-    formRegister: {name: '', status: '', categorie: ''},
+    formRegister: {name: '', status: '', categorie: '', registedBy: ''},
     buildActions: {setName: () => {}, setStatus: ()=> {}, setCategorie: () => {}, submit: () => {}}
 });
 
 export function FormRegisterProvider({children}: {children: ReactNode}){
+    const {authState} = useContext(AuthContext);
 
     const [formRegister, setFormRegister] = useState({
         name: '',
         categorie: '',
-        status: ''
+        status: '',
+        registedBy: authState.userName
     });
 
     const buildActions: BuildActionProps = {
@@ -46,7 +50,7 @@ export function FormRegisterProvider({children}: {children: ReactNode}){
 
         submit: () => {
             registerProduct(formRegister).then(() => {
-                setFormRegister({status: '', name: '', categorie: ''})
+                setFormRegister({status: '', name: '', categorie: '', registedBy: ''})
             })
         }
     }

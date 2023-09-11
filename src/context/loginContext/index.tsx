@@ -1,7 +1,7 @@
 import { ReactNode, useState, createContext, useContext } from "react";
 import {  loginUser } from "../../services/api/post/login";
-import { AuthContext } from "../AuthContext";
 import { TokenContext } from "../TokenContext";
+import { useNavigate } from "react-router-dom";
 
 
 interface Actions {
@@ -44,6 +44,7 @@ export function LoginProvider({children}: {children: ReactNode}){
 
     const [login, setLogin] = useState(defaultState);
     const {tokenActions} = useContext(TokenContext);
+    const navigate = useNavigate();
 
     const loginActions: Actions = {
         setName: (name: string) => setLogin({...login, userName: name}),
@@ -53,7 +54,8 @@ export function LoginProvider({children}: {children: ReactNode}){
             loginUser(login)
                 .then(res => {
                     if(res.isSucess){
-                        tokenActions.setUserToken(res.dataRequest.token)
+                        tokenActions.setUserToken(res.dataRequest.token);
+                        navigate('/')
                     }
                 })
         }

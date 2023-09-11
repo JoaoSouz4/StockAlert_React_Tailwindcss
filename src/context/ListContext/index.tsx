@@ -8,7 +8,7 @@ interface listProps {
     createdAt: Date,
     status: string,
     categorie: string,
-    _id: string
+    _id: string,
 }
 
 interface buildActionsProps {
@@ -24,7 +24,8 @@ interface ListContextProps {
     setAmount: React.Dispatch<React.SetStateAction<number| undefined>>,
     list: listProps[] | undefined,
     setList: React.Dispatch<React.SetStateAction<listProps[] | undefined>>,
-    buildActions: buildActionsProps | undefined
+    buildActions: buildActionsProps | undefined,
+    isFetching: boolean 
 
 }
 
@@ -35,31 +36,77 @@ export const ListContext = createContext<ListContextProps>(
         setList: () => [], 
         amount: undefined, 
         setAmount: ()=>{}, 
-        buildActions: undefined
+        buildActions: undefined,
+        isFetching: true
     });
 
 export function ListProvider ({children}: {children: ReactNode}){
 
     const [list, setList] = useState<listProps[] | undefined>();
     const [amount, setAmount] = useState<number | undefined>();
+    const [isFetching, setIsFetching] = useState<boolean>(true)
 
     const buildActions = {
-        showcapes: () => getOneList('cape').then(res => {setList(res.data.products); setAmount(res.data.currentAmount)}),
-        showmobileFilms: () => getOneList('mobileFilm').then(res => {setList(res.data.products); setAmount(res.data.currentAmount)}),
-        showDisplays: () => getOneList('display').then(res => {setList(res.data.products); setAmount(res.data.currentAmount)}),
-        showAcessories: () => getOneList('accessorie').then(res => {setList(res.data.products); setAmount(res.data.currentAmount)}),
-        showCables: () => getOneList('cable').then(res => {setList(res.data.products); setAmount(res.data.currentAmount)})
+        showcapes: () => {
+            setIsFetching(true)
+            getOneList('cape')
+                .then(res => {
+                    setList(res.data.products);
+                    setAmount(res.data.currentAmount); 
+                    setIsFetching(false)
+                })
+        },
+
+        showmobileFilms: () => {
+            setIsFetching(true)
+            getOneList('mobileFilm')
+                .then(res => {
+                    setList(res.data.products); 
+                    setAmount(res.data.currentAmount); 
+                    setIsFetching(false)
+                })
+        },
+
+        showDisplays: () => {
+            setIsFetching(true)
+            getOneList('display')
+                .then(res => {
+                    setList(res.data.products); 
+                    setAmount(res.data.currentAmount), 
+                    setIsFetching(false)
+            })
+        },
+
+        showAcessories: () => {
+            setIsFetching(true)
+            getOneList('accessorie')
+                .then(res => {
+                    setList(res.data.products); 
+                    setAmount(res.data.currentAmount); 
+                    setIsFetching(false)
+            })
+        },
+        showCables: () => {
+            setIsFetching(true)
+            getOneList('cable')
+                .then(res => {
+                    setList(res.data.products); 
+                    setAmount(res.data.currentAmount); 
+                    setIsFetching(false)
+            })
+        },
     }
 
     useEffect(() => {
-        getOneList('cape').then(res => {
-            setList(res.data.products)
-            setAmount(res.data.currentAmount)
-            }
-        )
+        getOneList('cape')
+            .then(res => {
+                setList(res.data.products)
+                setAmount(res.data.currentAmount)
+                setIsFetching(false)
+            })
     }, [])
     return (
-        <ListContext.Provider value = {{list, setList, amount, setAmount, buildActions}}>
+        <ListContext.Provider value = {{list, setList, amount, setAmount, buildActions, isFetching}}>
             {children}
         </ListContext.Provider>
     )

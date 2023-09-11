@@ -33,6 +33,7 @@ export function DropDownContextProvider({children}: {children: ReactNode}){
     });
 
     useEffect(() => {
+        if(dropdownState.value.length<=0) return setDropdownState({...dropdownState, value : '', label: ''})
         buildActions?.setCategorie(dropdownState.value)
     }, [dropdownState.value])
 

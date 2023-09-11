@@ -3,10 +3,11 @@ import { urldefault } from "../config";
 interface Product {
     name: string,
     categorie: string,
-    status: string
+    status: string,
+    registedBy: string
 }
 
-export async function registerProduct({name, categorie, status}: Product){
+export async function registerProduct({name, categorie, status, registedBy}: Product){
     const registerProduct = await fetch(`${urldefault}/post/registerproduct`, {
         method: 'POST',
         headers: {
@@ -15,7 +16,8 @@ export async function registerProduct({name, categorie, status}: Product){
         body: JSON.stringify({
             name: name,
             categorie: categorie,
-            status: status
+            status: status,
+            registedBy: registedBy
         })
     });
 
