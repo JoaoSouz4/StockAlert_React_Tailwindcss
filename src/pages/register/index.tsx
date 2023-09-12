@@ -7,6 +7,7 @@ import {useContext} from 'react';
 import { FormRegisterContext } from "../../context/formRegister";
 import { AuthContext } from "../../context/AuthContext";
 import { NotRegister } from "./notRegisted";
+import Spinner from "../../components/spinner";
 
 export default function RegisterProduct(){
 
@@ -68,7 +69,7 @@ export default function RegisterProduct(){
                             style = 'default'
                             onAction={() => {buildActions?.submit()}}
                         >
-                            <Button.Label label= 'Registrar' />
+                            {!formRegister?.isLoad?<Button.Label label= 'Registrar' />: <Spinner size = '8' color = 'white'/>}
                         </Button.Root>
                     </form>
             }

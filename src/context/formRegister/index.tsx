@@ -7,7 +7,8 @@ interface FormRegisterProps {
     name: string,
     categorie: string,
     status: string,
-    registedBy: string
+    registedBy: string,
+    isLoad: boolean,
 }
 
 interface BuildActionProps {
@@ -24,7 +25,7 @@ interface ContextProps {
 }
 
 export const FormRegisterContext = createContext<ContextProps>({
-    formRegister: {name: '', status: '', categorie: '', registedBy: ''},
+    formRegister: {name: '', status: '', categorie: '', registedBy: '', isLoad: false},
     buildActions: {setName: () => {}, setStatus: ()=> {}, setCategorie: () => {}, submit: () => {}}
 });
 
@@ -36,7 +37,8 @@ export function FormRegisterProvider({children}: {children: ReactNode}){
         name: '',
         categorie: '',
         status: '',
-        registedBy: authState.userName
+        registedBy: authState.userName,
+        isLoad: false
     });
 
     const buildActions: BuildActionProps = {
@@ -52,19 +54,28 @@ export function FormRegisterProvider({children}: {children: ReactNode}){
 
         submit: () => {
 
+            setFormRegister({...formRegister, isLoad : true})
+
             if(!formRegister.name){
+                setFormRegister({...formRegister, isLoad : false})
                 return openAlert('warning', 'nome inválido')
             }
             if(!formRegister.categorie){
+                setFormRegister({...formRegister, isLoad : false})
                 return openAlert('warning', 'é necessário informar a categoria')
             }
 
             if(!formRegister.status){
+                setFormRegister({...formRegister, isLoad : false})
                 return openAlert('warning', 'certifique o status do produto')
             }
-
-            registerProduct(formRegister).then(() => {
-                setFormRegister({status: '', name: '', categorie: '', registedBy: ''})
+            
+            registerProduct(formRegister).then((res) => {
+                if(!res.isSucess){
+                    setFormRegister({...formRegister, isLoad : false})
+                    return openAlert('warning', res.requestMessage)
+                }
+                setFormRegister({status: '', name: '', categorie: '', registedBy: '', isLoad: false})
                 openAlert('sucess', 'Produto Registrado')
             })
         }

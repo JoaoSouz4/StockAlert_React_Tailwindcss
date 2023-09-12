@@ -17,7 +17,7 @@ export function ButtonRoot({children, style, onAction}: ButtonRootProps){
     return(
         <button
             onClick = {handleClick}
-            className= {` flex justify-center items-center min-w-[3.5rem] ${style == 'leaked'? 'bg-white':'bg-blue-600'} rounded-full p-3 border ${style == 'leaked' ? 'border-blue-400 ' :'border-blue-700'} hover:cursor-pointer`}>
+            className= {` h-[3rem] flex justify-center items-center min-w-[3.5rem] ${style == 'leaked'? 'bg-white':'bg-blue-600'} rounded-full p-3 border ${style == 'leaked' ? 'border-blue-400 ' :'border-blue-700'} hover:cursor-pointer`}>
             {children}
         </button>
     )
