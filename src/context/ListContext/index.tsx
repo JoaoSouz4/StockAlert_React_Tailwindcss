@@ -25,7 +25,8 @@ interface ListContextProps {
     list: listProps[] | undefined,
     setList: React.Dispatch<React.SetStateAction<listProps[] | undefined>>,
     buildActions: buildActionsProps | undefined,
-    isFetching: boolean 
+    isFetching: boolean,
+    currentList: string,
 
 }
 
@@ -37,14 +38,16 @@ export const ListContext = createContext<ListContextProps>(
         amount: undefined, 
         setAmount: ()=>{}, 
         buildActions: undefined,
-        isFetching: true
+        isFetching: true,
+        currentList: '',
     });
 
 export function ListProvider ({children}: {children: ReactNode}){
 
     const [list, setList] = useState<listProps[] | undefined>();
     const [amount, setAmount] = useState<number | undefined>();
-    const [isFetching, setIsFetching] = useState<boolean>(true)
+    const [isFetching, setIsFetching] = useState<boolean>(true);
+    const [currentList, setCurrentList] = useState<string>('');
 
     const buildActions = {
         showcapes: () => {
@@ -53,7 +56,8 @@ export function ListProvider ({children}: {children: ReactNode}){
                 .then(res => {
                     setList(res.data.products);
                     setAmount(res.data.currentAmount); 
-                    setIsFetching(false)
+                    setIsFetching(false);
+                    setCurrentList('cape')
                 })
         },
 
@@ -64,6 +68,7 @@ export function ListProvider ({children}: {children: ReactNode}){
                     setList(res.data.products); 
                     setAmount(res.data.currentAmount); 
                     setIsFetching(false)
+                    setCurrentList('mobileFilm')
                 })
         },
 
@@ -74,6 +79,7 @@ export function ListProvider ({children}: {children: ReactNode}){
                     setList(res.data.products); 
                     setAmount(res.data.currentAmount), 
                     setIsFetching(false)
+                    setCurrentList('display')
             })
         },
 
@@ -84,6 +90,7 @@ export function ListProvider ({children}: {children: ReactNode}){
                     setList(res.data.products); 
                     setAmount(res.data.currentAmount); 
                     setIsFetching(false)
+                    setCurrentList('accessorie')
             })
         },
         showCables: () => {
@@ -93,6 +100,7 @@ export function ListProvider ({children}: {children: ReactNode}){
                     setList(res.data.products); 
                     setAmount(res.data.currentAmount); 
                     setIsFetching(false)
+                    setCurrentList('cable')
             })
         },
     }
@@ -103,10 +111,11 @@ export function ListProvider ({children}: {children: ReactNode}){
                 setList(res.data.products)
                 setAmount(res.data.currentAmount)
                 setIsFetching(false)
+                setCurrentList('cable')
             })
     }, [])
     return (
-        <ListContext.Provider value = {{list, setList, amount, setAmount, buildActions, isFetching}}>
+        <ListContext.Provider value = {{list, setList, amount, setAmount, buildActions, isFetching, currentList}}>
             {children}
         </ListContext.Provider>
     )

@@ -9,6 +9,7 @@ import { FormRegisterProvider } from './context/formRegister/index.tsx';
 import { LoginProvider } from './context/loginContext/index.tsx';
 import { AuthProvider } from './context/AuthContext/index.tsx';
 import { TokenProvider } from './context/TokenContext/index.tsx';
+import { AlertProvider } from './context/AlertContext/index.tsx';
 
 const router = createBrowserRouter(
   [
@@ -17,7 +18,9 @@ const router = createBrowserRouter(
       element: (
         <TokenProvider>
           <AuthProvider>
-            <App />
+            <AlertProvider>
+              <App />
+            </AlertProvider>
           </AuthProvider>
         </TokenProvider>
       ),
