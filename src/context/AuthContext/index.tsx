@@ -14,10 +14,12 @@ export function AuthProvider({children}: {children: ReactNode}){
 
     const [authState, setAuthState] = useState(defaultState);
 
-    const  {tokenState} = useContext(TokenContext);
+    const  {tokenState, tokenActions} = useContext(TokenContext);
 
     const AuthActions : ActionType = {
-        logout: () => {},
+        logout: () => {
+            tokenActions.removeUserToken();
+        },
         signIn: () => {
             setAuthState({
                 userName: tokenState.tokenDecode.user,

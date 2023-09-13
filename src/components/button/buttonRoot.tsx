@@ -4,11 +4,12 @@ import React from 'react'
 export interface ButtonRootProps {
     children: ReactNode
     style: string,
-    onAction: () => void
+    onAction: () => void,
+    disabled?: boolean
 }
 
 
-export function ButtonRoot({children, style, onAction}: ButtonRootProps){
+export function ButtonRoot({children, style, onAction, disabled}: ButtonRootProps){
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -17,7 +18,8 @@ export function ButtonRoot({children, style, onAction}: ButtonRootProps){
     return(
         <button
             onClick = {handleClick}
-            className= {` h-[3rem] flex justify-center items-center min-w-[3.5rem] ${style == 'leaked'? 'bg-white':'bg-blue-600'} rounded-full p-3 border ${style == 'leaked' ? 'border-blue-400 ' :'border-blue-700'} hover:cursor-pointer`}>
+            disabled = {disabled? disabled: false}
+            className= {` h-[3rem] flex justify-center items-center min-w-[3.5rem] ${style == 'leaked'? 'bg-white':'bg-blue-600'} rounded-full p-3 border ${style == 'leaked' ? 'border-blue-400 ' :'border-blue-700'} hover:cursor-pointer disabled:opacity-75`}>
             {children}
         </button>
     )

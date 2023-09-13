@@ -2,6 +2,7 @@ import { ReactNode, useState, createContext, useContext } from "react";
 import {  loginUser } from "../../services/api/post/login";
 import { TokenContext } from "../TokenContext";
 import { useNavigate } from "react-router-dom";
+import { AlertContext } from "../AlertContext";
 
 
 interface Actions {
@@ -13,7 +14,8 @@ interface Actions {
 
 interface ContextValues {
     login: DefaultState | undefined,
-    loginActions: Actions | undefined
+    loginActions: Actions | undefined,
+    isLoad: boolean,
 }
 interface DefaultState {
     userName: string,
@@ -30,6 +32,7 @@ const defaultState: DefaultState = {
 
 export const LoginContext = createContext<ContextValues>({
     login: defaultState,
+    isLoad: false,
     loginActions: {
         setName: () => {},
         setPass: () => {},
@@ -44,6 +47,9 @@ export function LoginProvider({children}: {children: ReactNode}){
 
     const [login, setLogin] = useState(defaultState);
     const {tokenActions} = useContext(TokenContext);
+    const {openAlert} = useContext(AlertContext);
+    const [isLoad, setIsLoad] = useState<boolean>(false);
+
     const navigate = useNavigate();
 
     const loginActions: Actions = {
@@ -51,18 +57,22 @@ export function LoginProvider({children}: {children: ReactNode}){
         setPass: (pass: string) => setLogin({...login, pass: pass}),
         changePassVisibility: () => {setLogin({...login, passVisibility: !login.passVisibility})},
         login: () =>{
+            setIsLoad(true);
             loginUser(login)
                 .then(res => {
+                    setIsLoad(false);
                     if(res.isSucess){
                         tokenActions.setUserToken(res.dataRequest.token);
                         navigate('/')
+                    } else {
+                        openAlert('warning', res.requestMessage)
                     }
                 })
         }
 
     }
     return (
-        <LoginContext.Provider value = {{login, loginActions}}>
+        <LoginContext.Provider value = {{login, loginActions, isLoad}}>
             {children}
         </LoginContext.Provider>
     )

@@ -1,6 +1,6 @@
 import {ReactNode, createContext, useEffect, useState} from 'react';
 import { defaultActions, ActionsTypes } from './defaultState';
-import { saveToken, getToken } from '../../services/api/getToken';
+import { saveToken, getToken, removeToken} from '../../services/api/tokenActions';
 import checkToken from '../../services/api/post/checkToken';
 import Spinner from '../../components/spinner';
 
@@ -32,7 +32,20 @@ export function TokenProvider({children}: {children: ReactNode}){
 
     const tokenActions: ActionsTypes = {
         setUserToken: (token: string) => setTokenState({...tokenState, token: token}),
-        removeUserToken: () => {}
+        
+        removeUserToken: () => {
+            removeToken();
+            window.location.href = '/';
+            setTokenState({
+                token: '',
+                isValid: false,
+                tokenDecode: {
+                    user: '',
+                    id: '',
+                },
+                findingToken: false,
+            })
+        }
     }
 
     //verificando a existencia de um token
