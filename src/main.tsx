@@ -13,8 +13,10 @@ import { AuthProvider } from './context/AuthContext/index.tsx';
 import { TokenProvider } from './context/TokenContext/index.tsx';
 import { AlertProvider } from './context/AlertContext/index.tsx';
 import { UpdatePassProvider } from './context/UpdatePassContext/index.tsx';
+import { ModalProvider } from './context/ModalContext/index.tsx';
 
 const router = createBrowserRouter(
+
   [
     {
       path: '/',
@@ -30,7 +32,11 @@ const router = createBrowserRouter(
       children: [
         {
           path: '/',
-          element: (<Home />)
+          element: (
+            <ModalProvider>
+              <Home />
+            </ModalProvider>
+          )
         },
         {
           path: '/register',

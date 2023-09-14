@@ -1,10 +1,11 @@
 interface ButtonLabelProps {
-    label: string
+    label: string,
+    color?: string
 }
 
-export function ButtonLabel({label}: ButtonLabelProps){
+export function ButtonLabel({label, color}: ButtonLabelProps){
     return(
-        <label className = 'text-white font-bold'>
+        <label className = {`${color? color: 'text-white'} font-bold`}>
             {label}
         </label>
     )

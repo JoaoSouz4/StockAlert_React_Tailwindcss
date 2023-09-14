@@ -1,5 +1,7 @@
 import { createContext, ReactNode, useState, useEffect} from "react"
 import { getOneList } from "../../services/api/get/getOneList";
+import { removeCategorieItems as remove} from "../../services/api/delete/removeCategorieItem";
+import { removeOneItem } from "../../services/api/delete/removeItem";
 
 interface listProps {
     
@@ -17,6 +19,8 @@ interface buildActionsProps {
     showDisplays: () => void,
     showAcessories: () => void,
     showCables: () => void,
+    removeCategorieItems: () => void,
+    removeItem: (nameItem: string) => void,
 }
 
 interface ListContextProps {
@@ -27,7 +31,6 @@ interface ListContextProps {
     buildActions: buildActionsProps | undefined,
     isFetching: boolean,
     currentList: string,
-
 }
 
 
@@ -48,6 +51,7 @@ export function ListProvider ({children}: {children: ReactNode}){
     const [amount, setAmount] = useState<number | undefined>();
     const [isFetching, setIsFetching] = useState<boolean>(true);
     const [currentList, setCurrentList] = useState<string>('');
+
 
     const buildActions = {
         showcapes: () => {
@@ -103,6 +107,29 @@ export function ListProvider ({children}: {children: ReactNode}){
                     setCurrentList('cable')
             })
         },
+
+        removeCategorieItems: async () => {
+            setIsFetching(true);
+            await remove(currentList)
+                .then(res => {
+                    
+                    setList(res.requestData.currentList)
+                    setAmount(res.requestData.currentAmount)
+                    setIsFetching(false)
+
+                })
+        },
+
+        removeItem: (nameItem: string) => {
+            setIsFetching(true);
+            removeOneItem(nameItem, currentList)
+                .then(res => {
+                    console.log(res)
+                    setList(res.requestData.currentList);
+                    setAmount(res.requestData.currentAmount);
+                    setIsFetching(false);
+                })
+        }
     }
 
     useEffect(() => {
@@ -111,9 +138,10 @@ export function ListProvider ({children}: {children: ReactNode}){
                 setList(res.data.products)
                 setAmount(res.data.currentAmount)
                 setIsFetching(false)
-                setCurrentList('cable')
+                setCurrentList('cape')
             })
     }, [])
+
     return (
         <ListContext.Provider value = {{list, setList, amount, setAmount, buildActions, isFetching, currentList}}>
             {children}
