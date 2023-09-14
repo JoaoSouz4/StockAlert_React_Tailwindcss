@@ -8,7 +8,7 @@ interface OptionCategorieProps {
 
 export function OptionCategorie({label, categorie}: OptionCategorieProps){
 
-    const {buildActions} = useContext(ListContext);
+    const {currentList, buildActions} = useContext(ListContext);
 
     const handleClick = () => {
         switch (categorie){
@@ -21,10 +21,10 @@ export function OptionCategorie({label, categorie}: OptionCategorieProps){
     }
     return (
         <div
-            className = 'bg-slate-200 rounded-lg p-3'
+            className = {` ${currentList == categorie? 'bg-blue-600': 'bg-slate-200'} duration-300 ease-in rounded-2xl p-3`}
             onClick={handleClick}
         >
-            <label>{label}</label>
+            <label className = {`${currentList == categorie? 'text-white': 'text-slate-600'}`}>{label}</label>
         </div>
     )
 }
