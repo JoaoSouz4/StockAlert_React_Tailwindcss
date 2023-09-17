@@ -1,5 +1,4 @@
 import Title from "../../../components/title"
-import { TitleText } from "../../../components/title/TitleText"
 import { OptionCategorie } from "./Option"
 import {BiSolidCategory} from 'react-icons/bi'
 import {categoriesArray as array} from "./categoriesArray"
@@ -9,7 +8,7 @@ export function Categories(){
         <div className = 'w-full'>
             <Title.Root>
                 <Title.Icon icon = {BiSolidCategory} />
-                <TitleText text = 'Categorias' />
+                <Title.Text text = 'Categorias' />
             </Title.Root>
             <div className = 'overflow-x-auto pb-3'>
                 <div className = 'flex items-center gap-3 mt-3'>
