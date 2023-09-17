@@ -4,22 +4,29 @@ import { Action } from './action';
 import { ListContext } from '../../../../context/ListContext';
 import {useContext} from 'react';
 
-export function Actions(name: any){
-   
+import { ModalUpdateContext } from '../../context/modalUpdateItemContext';
+import { UpdateItemContext } from '../../context/updateItemContext';
+
+export function Actions({name, id}: {name: string, id: string, status: string, categorie: string}){
+
     const {buildActions: listActions} = useContext(ListContext);
+    const {modalActions} = useContext(ModalUpdateContext);
+    const {formUpdateActions} = useContext(UpdateItemContext);
 
-    return (
+    return (    
         <div className = 'flex items-center gap-2 h-full'>
-            
-
             <Action 
                 icon = {AiFillEdit}
-                onActionClick= {() => {}}
+                onActionClick= {() => {
+                    modalActions.openModal();
+                    formUpdateActions.updateTarget(id)
+                }}
+                
             />
 
             <Action 
                 icon = {BiSolidTrashAlt}
-                onActionClick={() => listActions?.removeItem(name.name)}
+                onActionClick={() => listActions?.removeItem(name)}
             />
         </div>
     )

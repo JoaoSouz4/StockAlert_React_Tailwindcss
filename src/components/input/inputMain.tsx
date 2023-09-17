@@ -5,7 +5,7 @@ interface InputMainlProps {
     onChangeAction: (e: React.ChangeEvent<HTMLInputElement>) => void,
     placeholder?: string,
     isDisabled?: boolean,
-    value: any
+    value?: any
 }
 
 

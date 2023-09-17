@@ -19,8 +19,8 @@ interface BuildActionProps {
 }
 
 interface ContextProps {
-    formRegister: FormRegisterProps | undefined,
-    buildActions: BuildActionProps | undefined
+    formRegister: FormRegisterProps 
+    buildActions: BuildActionProps 
     
 }
 

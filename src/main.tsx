@@ -24,7 +24,9 @@ const router = createBrowserRouter(
         <TokenProvider>
           <AuthProvider>
             <AlertProvider>
-              <App />
+              <FormRegisterProvider>
+                <App />
+              </FormRegisterProvider>
             </AlertProvider>
           </AuthProvider>
         </TokenProvider>
@@ -34,7 +36,7 @@ const router = createBrowserRouter(
           path: '/',
           element: (
             <ModalProvider>
-              <Home />
+                <Home />
             </ModalProvider>
           )
         },

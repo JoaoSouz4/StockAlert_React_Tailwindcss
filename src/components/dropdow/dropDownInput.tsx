@@ -6,24 +6,30 @@ interface DropDownInputMainlProps {
     type: string,
     placeholder?: string,
     isDisabled?: boolean,
-    value?: any
+    value: string,
+    onChangeAction: (value: string) => void
 }
 
-export function DropDownInput ({type, placeholder, value}: DropDownInputMainlProps){
+export function DropDownInput ({type, placeholder, onChangeAction, value}: DropDownInputMainlProps){
+    const {dropdownState, buildAction} = useContext(DropDownContext);
     useEffect(() => {
-        if(value.length <=0){
-            buildAction?.choose('', '')
+        if(value.length <=0 ){
+            buildAction.choose('', '')
         }
     }, [value])
-    const {dropdownState, buildAction} = useContext(DropDownContext);
+
+    
+    useEffect(() => {
+        onChangeAction(dropdownState.value);
+    }, [dropdownState?.label]);
+
         return(
             <input
                 value = {dropdownState?.label}
-                disabled = {true}
                 className = 'w-full bg-white border border-blue-400 rounded-full p-3 focus:outline-blue-600'
                 type = {type}
-                onChange={ () => {console.log('lllllll')}}
                 placeholder = {placeholder}
+                onChange= {() => {console.log('MUDOUR')}}
             />
         )
 }

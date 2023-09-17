@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState, useEffect, useContext } from "react"
+import { ReactNode, createContext, useState, useEffect, useContext, useRef } from "react"
 import { FormRegisterContext } from "../formRegister";
 
 interface buildActionProps {
@@ -11,25 +11,33 @@ interface statesProps {
     value: string,
     isOpen: boolean,
     label: string,
+    ref: any
 }
 
 interface valueProps {
-    dropdownState: statesProps | undefined,
-    buildAction: buildActionProps | undefined
+    dropdownState: statesProps
+    buildAction: buildActionProps
 }
 
 export const DropDownContext = createContext<valueProps>({
-    dropdownState: {value: '', isOpen: false, label: ''},
-    buildAction: undefined
-})
+    dropdownState: {value: '', isOpen: false, label: '', ref: {}},
+    buildAction: {
+        open: () => {},
+        close: () => {},
+        choose: () => {}
+    }
+    }
+)
 
 export function DropDownContextProvider({children}: {children: ReactNode}){
     const {buildActions} = useContext(FormRegisterContext);
+    const ddRef = useRef();
 
     const [dropdownState, setDropdownState]= useState({
         label: '',
         value: '',
-        isOpen: false
+        isOpen: false,
+        ref: ddRef
     });
 
     useEffect(() => {
@@ -42,7 +50,7 @@ export function DropDownContextProvider({children}: {children: ReactNode}){
         open: () => setDropdownState({...dropdownState, isOpen: true}),
         close: () => {setDropdownState({...dropdownState, isOpen: false})},
         choose: (value: string, label: string) => {
-            setDropdownState({isOpen: false, value: value, label: label})
+            setDropdownState({...dropdownState, isOpen: false, value: value, label: label})
         }
     }
     return(

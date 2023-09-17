@@ -7,9 +7,11 @@ interface ItemProps {
     registedBy: string,
     status: string,
     name: string,
+    id: string
+    categorie: string
 }
 
-export function ListItem({createdAt, registedBy, status, name}: ItemProps){
+export function ListItem({createdAt, registedBy, status, name, id, categorie}: ItemProps){
 
 
     const newD = new Date(createdAt);
@@ -27,7 +29,12 @@ export function ListItem({createdAt, registedBy, status, name}: ItemProps){
                             <ItemStatus status = {status}/>
                         </div>
 
-                        <Actions name = {name}/>
+                        <Actions 
+                            name = {name}
+                            id = {id}
+                            categorie = {categorie}
+                            status = {status}
+                        />
                     </div>
                 </div>
 

@@ -6,7 +6,7 @@ interface TitleRootProps {
 
 export function TitleRoot({children}: TitleRootProps){
     return(
-        <div className = 'flex items-center gap-1'>
+        <div className = 'w-full flex items-center gap-1'>
             {children}
         </div>
     )

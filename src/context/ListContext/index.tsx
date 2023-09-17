@@ -124,7 +124,6 @@ export function ListProvider ({children}: {children: ReactNode}){
             setIsFetching(true);
             removeOneItem(nameItem, currentList)
                 .then(res => {
-                    console.log(res)
                     setList(res.requestData.currentList);
                     setAmount(res.requestData.currentAmount);
                     setIsFetching(false);

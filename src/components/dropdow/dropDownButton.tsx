@@ -13,17 +13,19 @@ export function DropDownButton({label, styleButton, icon: Icon}: DropDownButtonP
     const {dropdownState, buildAction} = useContext(DropDownContext)
 
     return(
-        <Button.Root
-            onAction={ () => {
-                if(!dropdownState?.isOpen){
-                    buildAction?.open()
-                } else {
-                    buildAction?.close()
-                }
-            }}
-            style= {styleButton}>
-            {label && <Button.Label label = {label} />}
-            {Icon && <Icon className = 'text-blue-600'/>}
-        </Button.Root>
+        <div className = 'max-w-[3.5rem]'>
+            <Button.Root
+                onAction={ () => {
+                    if(!dropdownState?.isOpen){
+                        buildAction?.open()
+                    } else {
+                        buildAction?.close()
+                    }
+                }}
+                style= {styleButton}>
+                {label && <Button.Label label = {label} />}
+                {Icon && <Icon className = 'text-blue-600'/>}
+            </Button.Root>
+        </div>
     )
 }

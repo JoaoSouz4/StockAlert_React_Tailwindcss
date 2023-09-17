@@ -10,6 +10,7 @@ export function DropDownItem({nameItem, value}: DropDownItemProps){
 
     const {buildAction} = useContext(DropDownContext);
     const handleClick = () => {
+        console.log('func de mudar')
         buildAction?.choose(value, nameItem)
     }
 
