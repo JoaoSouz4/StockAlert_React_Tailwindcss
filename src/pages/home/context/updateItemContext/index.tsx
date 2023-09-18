@@ -53,6 +53,8 @@ export function FormUpdateProvider({children}: {children: ReactNode}){
                         openAlert('sucess', 'Item atualizado');
                         setList(res.currentList);
                         setAmount(res.currentAmount)
+                    } else {
+                        openAlert('warning', res.requestMessage, 2000)
                     }
                 });
         }

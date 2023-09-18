@@ -71,6 +71,7 @@ export default function RegisterProduct(){
                         <Button.Root 
                             style = 'default'
                             onAction={() => {buildActions?.submit()}}
+                            disabled = {formRegister?.isLoad}
                         >
                             {!formRegister?.isLoad?<Button.Label label= 'Registrar' />: <Spinner size = '8' color = 'white'/>}
                         </Button.Root>

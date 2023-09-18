@@ -101,7 +101,7 @@ export function FormUpdateItem(){
                             buttonText='Atualizar'
                             onAction={() => {
                                 if(!FormState.name || !FormState.categorie || !FormState.status) return openAlert('warning', 'preencha todos os campos');
-                                formUpdateActions.submit(FormState.name, FormState.categorie, FormState.categorie)
+                                formUpdateActions.submit(FormState.name, FormState.categorie, FormState.status)
                             }}
                             styleButton= {'default'}
                         />
