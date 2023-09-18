@@ -10,14 +10,19 @@ export default function Menu(){
     return (
         <>
             <header className = ' z-40 bg-blue-600 flex justify-between items-center w-full px-3 py-4'>
-                <div className = 'flex items-center'>
+                <div className = 'flex items-center gap-3'>
                     <RiMenu4Fill
                         className = 'text-white text-2xl'
                     />
+
+                    <label className = 'text-lg text-white'>
+                        <strong>Stock </strong>
+                        Alert
+                    </label>
                 </div>
 
                 <Link to = 'login'>
-                    <div className = 'flex justify-start gap-2 items-center'>
+                    <div className = 'flex justify-start gap-2 items-center text-sm'>
                         <BiSolidUser className = 'text-white'/>
                         <span className = 'text-white'>{
                             authState.isAuthenticated?
