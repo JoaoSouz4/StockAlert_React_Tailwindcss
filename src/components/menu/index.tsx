@@ -26,7 +26,7 @@ export default function Menu(){
                         <BiSolidUser className = 'text-white'/>
                         <span className = 'text-white'>{
                             authState.isAuthenticated?
-                                <span>{authState.userName}</span>
+                                <div>{authState.userName}</div>
                             :
                                 <span>Login</span>
                         }</span>

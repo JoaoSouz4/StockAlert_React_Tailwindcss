@@ -1,15 +1,11 @@
-import Title from "../../../components/title"
 import { OptionCategorie } from "./Option"
-import {BiSolidCategory} from 'react-icons/bi'
 import {categoriesArray as array} from "./categoriesArray"
+import { Search } from './Search'
 
 export function Categories(){
     return(
         <div className = 'w-full'>
-            <Title.Root>
-                <Title.Icon icon = {BiSolidCategory} />
-                <Title.Text text = 'Categorias' />
-            </Title.Root>
+            <Search />
             <div className = 'overflow-x-auto pb-3'>
                 <div className = 'flex items-center gap-3 mt-3'>
                     {

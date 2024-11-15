@@ -3,8 +3,7 @@ import { getOneList } from "../../services/api/get/getOneList";
 import { removeCategorieItems as remove} from "../../services/api/delete/removeCategorieItem";
 import { removeOneItem } from "../../services/api/delete/removeItem";
 
-interface listProps {
-    
+export interface listProps {
     name: string,
     registedBy: string,
     createdAt: Date,
@@ -31,34 +30,40 @@ interface ListContextProps {
     buildActions: buildActionsProps | undefined,
     isFetching: boolean,
     currentList: string,
+    defaultList: listProps[] | undefined,
 }
 
 
 export const ListContext = createContext<ListContextProps>(
     { 
         list: undefined,
+        defaultList: undefined,
         setList: () => [], 
         amount: undefined, 
         setAmount: ()=>{}, 
         buildActions: undefined,
         isFetching: true,
         currentList: '',
-    });
+});
 
 export function ListProvider ({children}: {children: ReactNode}){
 
-    const [list, setList] = useState<listProps[] | undefined>();
+    
+    const [ defaultList, setDefaultList ] = useState([]);
+    const [list, setList] = useState<listProps[] | undefined>(defaultList);
+
     const [amount, setAmount] = useState<number | undefined>();
     const [isFetching, setIsFetching] = useState<boolean>(true);
     const [currentList, setCurrentList] = useState<string>('');
 
 
     const buildActions = {
+
         showcapes: () => {
             setIsFetching(true)
             getOneList('cape')
                 .then(res => {
-                    setList(res.data.products);
+                    setDefaultList(res.data.products);
                     setAmount(res.data.currentAmount); 
                     setIsFetching(false);
                     setCurrentList('cape')
@@ -69,7 +74,7 @@ export function ListProvider ({children}: {children: ReactNode}){
             setIsFetching(true)
             getOneList('mobileFilm')
                 .then(res => {
-                    setList(res.data.products); 
+                    setDefaultList(res.data.products); 
                     setAmount(res.data.currentAmount); 
                     setIsFetching(false)
                     setCurrentList('mobileFilm')
@@ -80,7 +85,7 @@ export function ListProvider ({children}: {children: ReactNode}){
             setIsFetching(true)
             getOneList('display')
                 .then(res => {
-                    setList(res.data.products); 
+                    setDefaultList(res.data.products); 
                     setAmount(res.data.currentAmount), 
                     setIsFetching(false)
                     setCurrentList('display')
@@ -91,7 +96,7 @@ export function ListProvider ({children}: {children: ReactNode}){
             setIsFetching(true)
             getOneList('accessorie')
                 .then(res => {
-                    setList(res.data.products); 
+                    setDefaultList(res.data.products); 
                     setAmount(res.data.currentAmount); 
                     setIsFetching(false)
                     setCurrentList('accessorie')
@@ -101,7 +106,7 @@ export function ListProvider ({children}: {children: ReactNode}){
             setIsFetching(true)
             getOneList('cable')
                 .then(res => {
-                    setList(res.data.products); 
+                    setDefaultList(res.data.products); 
                     setAmount(res.data.currentAmount); 
                     setIsFetching(false)
                     setCurrentList('cable')
@@ -113,7 +118,7 @@ export function ListProvider ({children}: {children: ReactNode}){
             await remove(currentList)
                 .then(res => {
                     
-                    setList(res.requestData.currentList)
+                    setDefaultList(res.requestData.currentList)
                     setAmount(res.requestData.currentAmount)
                     setIsFetching(false)
 
@@ -134,15 +139,19 @@ export function ListProvider ({children}: {children: ReactNode}){
     useEffect(() => {
         getOneList('cape')
             .then(res => {
-                setList(res.data.products)
+                setDefaultList(res.data.products)
                 setAmount(res.data.currentAmount)
                 setIsFetching(false)
                 setCurrentList('cape')
             })
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        setList(defaultList)
+    },[defaultList])
 
     return (
-        <ListContext.Provider value = {{list, setList, amount, setAmount, buildActions, isFetching, currentList}}>
+        <ListContext.Provider value = {{defaultList, list, setList, amount, setAmount, buildActions, isFetching, currentList}}>
             {children}
         </ListContext.Provider>
     )
