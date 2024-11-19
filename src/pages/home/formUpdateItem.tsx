@@ -13,8 +13,7 @@ import { AlertContext } from "../../context/AlertContext";
 export function FormUpdateItem(){
     const { modalActions} = useContext(ModalUpdateContext);
     const {formUpdate, formUpdateActions} = useContext(UpdateItemContext);
-    const {openAlert} = useContext(AlertContext);
-
+    const {openAlert} = useContext(AlertContext); 
     const [FormState, setFormState] = useState({
         name: '',
         categorie: '',
@@ -71,7 +70,7 @@ export function FormUpdateItem(){
                                 <DropDown.Item nameItem="Displays" value = 'display'/>
                             </DropDown.List>
                         </DropDown.Root>
-                        <Radio.Root>
+                        <Radio.Root state = {FormState.status}>
                             <Radio.Input
                                 onAction = {(value: string) => setFormState({...FormState, status: value})}
                                 label = 'Poucas unidades'
