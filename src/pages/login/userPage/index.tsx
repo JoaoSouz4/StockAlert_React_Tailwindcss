@@ -5,6 +5,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import {useContext} from 'react';
 import { BiSolidUser } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import { VscFilePdf } from "react-icons/vsc";
 
 export function UserPage(){
 
@@ -18,18 +19,23 @@ export function UserPage(){
 
                 <div className = 'flex items-center justify-cebnter gap-2 text-xl mb-3'>
                     <div className = 'p-2 rounded-full border'>
-                        <BiSolidUser />
+                        <BiSolidUser className = 'text-blue-700'/>
                     </div>
-                    <h3 className = 'text-center'>
+                    <h3 className = 'text-center text-slate-800'>
                         {authState.userName}
                     </h3>
                 </div>
 
-                <div className = 'flex flex-col gap-3'>
+                <div className = 'grid grid-cols-2 gap-3'>
                     <Option
                         nameOption = 'Refinir Senha'
                         onAction = {() => {navigate('/updatepass')}}
                         icon = {FaGear}
+                    />
+                    <Option
+                        nameOption = 'Gerar PDF'
+                        onAction = {() => console.log('')}
+                        icon = {VscFilePdf}
                     />
                     <Option
                         nameOption = 'Sair'

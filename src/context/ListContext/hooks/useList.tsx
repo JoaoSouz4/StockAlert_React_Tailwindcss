@@ -1,21 +1,72 @@
-import { useContext } from "react";
-import { ListContext } from "..";
-import { listProps } from "..";
+import { useListContext } from "./useListContext";
+import { ListProps } from "..";
+import { removeOneItem } from "../../../services/api/delete/removeItem";
+import { refreshData } from "./functions/refreshState";
+export function useList() {
+    
+    const { listStates, setListStates } = useListContext();
 
-export function useList(){
-    const { defaultList, setList, setAmount } = useContext(ListContext);
+    const changeListByMenuCategorie = (categorie: string) => {
 
+        setListStates((prevStates) => ({ ...prevStates, isFetching: true }));
+        const filteredData = listStates.defaultList.filter((obj) => obj.categorie === categorie);
+
+        setListStates((prevStates) => ({
+            ...prevStates,
+            amount: filteredData.length,
+            currentList: filteredData,
+            section: filteredData[0]?.categorie ?? "",
+            isFetching: false,
+        }));
+    };
+
+    const refresh = async () => {{
+        setListStates((prevStates) => ({...prevStates, isFetching: true}))
+        const newData = await refreshData();
+        const section = listStates.section;
+        const filteredList = newData.data.products.filter((obj: any) => obj.categorie == section);
+        setListStates((prevStates) => ({
+            ...prevStates,
+            defaultList: newData.data.products,
+            currentList: filteredList,
+            isFetching: false,
+            amount: filteredList.length
+        }))
+    }};
+
+    
     return {
+        section: listStates.section,
+        amount: listStates.amount,
+        isLoading: listStates.isFetching,
+        currentList: listStates.currentList,
+        changeListByMenuCategorie,
+        refresh,
         changeListByInput: (text: string) => {
-            
-            const copyData = defaultList;
+            if (!text) {
+                return changeListByMenuCategorie(listStates.section);
+            }
 
-            const filteredData = copyData?.filter((obj: listProps) => {
-                return obj.name.includes(text)
+            const copyData = listStates.currentList;
+
+            const filteredData = copyData?.filter((obj: ListProps) => {
+                return obj.name.includes(text);
             });
-            setAmount(filteredData?.length)
-            setList(filteredData)
+
+            setListStates({
+                ...listStates,
+                amount: filteredData.length,
+                currentList: filteredData,
+            });
         },
-        
-    }
+        removeItemList: async  (nameItem: string) => {
+            setListStates((prevStates) => ({
+                ...prevStates,
+                isFetching: true
+            }));
+
+            await removeOneItem(nameItem, listStates.section);
+            await refresh()  
+        }
+    };
 }

@@ -13,8 +13,9 @@ export default function RegisterProduct(){
 
     const {formRegister, buildActions} = useContext(FormRegisterContext);
     const {authState} = useContext(AuthContext);
+
     return (
-        <div className = 'h-full'>
+        <div className = 'h-full px-4'>
             <div className = ' h-full flex justify-center items-center'>
             {
                 !authState.isAuthenticated?
@@ -53,7 +54,7 @@ export default function RegisterProduct(){
                             </DropDown.List>
                         </DropDown.Root>
 
-                        <Radio.Root>
+                        <Radio.Root state = {formRegister.status}>
                             <Radio.Input
                                 onAction = {(value) => buildActions.setStatus(value)}
                                 label = 'Poucas unidades'

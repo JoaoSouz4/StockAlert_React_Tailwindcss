@@ -35,7 +35,11 @@ export function AuthProvider({children}: {children: ReactNode}){
         if(tokenState.isValid){
             AuthActions.signIn();
         }
-    }, [tokenState.isValid])
+    }, [tokenState.isValid]);
+
+    useEffect(() => {
+        console.log(authState)
+    })
 
    
     return (

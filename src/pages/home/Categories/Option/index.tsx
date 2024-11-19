@@ -1,5 +1,4 @@
-import {useContext} from 'react'
-import { ListContext } from '../../../../context/ListContext'
+import { useList } from "../../../../context/ListContext/hooks/useList"
 
 interface OptionCategorieProps {
     label: string,
@@ -8,23 +7,17 @@ interface OptionCategorieProps {
 
 export function OptionCategorie({label, categorie}: OptionCategorieProps){
 
-    const {currentList, buildActions} = useContext(ListContext);
+    const { section, changeListByMenuCategorie } = useList();
 
-    const handleClick = () => {
-        switch (categorie){
-            case 'cape': return buildActions?.showcapes()
-            case 'mobileFilm': return buildActions?.showmobileFilms()
-            case 'cable': return buildActions?.showCables()
-            case 'accessorie': return buildActions?.showAcessories()
-            case 'display': return buildActions?.showDisplays()
-        }
+    function handleClick(){
+        changeListByMenuCategorie(categorie)
     }
     return (
         <div
-            className = {` ${currentList == categorie? 'bg-blue-600': 'bg-slate-200'} duration-300 ease-in rounded-2xl p-3`}
-            onClick={handleClick}
+            onClick = {handleClick}
+            className = {`${categorie == section ? 'bg-blue-500': 'bg-slate-200'} duration-300 ease-in rounded-2xl p-3`}
         >
-            <label className = {`${currentList == categorie? 'text-white': 'text-slate-600'}`}>{label}</label>
+            <label className = {`${categorie == section ? 'text-white': 'text-slate-600'}`}>{label}</label>
         </div>
     )
 }

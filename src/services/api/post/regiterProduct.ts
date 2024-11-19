@@ -3,7 +3,7 @@ import { urldefault } from "../config";
 interface Product {
     name: string,
     categorie: string,
-    status: string,
+    status: string | null,
     registedBy: string
 }
 

@@ -9,7 +9,7 @@ export default function Spinner({size, color}: SpinnerProps){
         <div className = 'w-full h-full flex items-center justify-center'>
             <BeatLoader 
                 color = { color == 'white'? '#FFFFFF' : '#1d4ed8'}
-                size = {size? size : 8}
+                size = {size? size : '8px'}
             />
         </div>
     )

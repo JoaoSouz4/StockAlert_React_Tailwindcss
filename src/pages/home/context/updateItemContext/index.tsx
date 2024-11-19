@@ -2,8 +2,7 @@ import {createContext, ReactNode, useState, useContext} from 'react';
 import { updateItem } from '../../../../services/api/post/updateItem';
 import { AlertContext } from '../../../../context/AlertContext';
 import { ModalUpdateContext } from '../modalUpdateItemContext';
-import { ListContext } from '../../../../context/ListContext';
-
+import { useList } from '../../../../context/ListContext/hooks/useList';
 
 interface DefaultActionsProps {
     updateTarget: (id: string) => void
@@ -15,7 +14,6 @@ const defaultActions: DefaultActionsProps = {
     setIsReady : () => {},
     submit: () => {
     },
-
 }
 
 export const UpdateItemContext = createContext({
@@ -31,7 +29,7 @@ export function FormUpdateProvider({children}: {children: ReactNode}){
 
     const {openAlert} = useContext(AlertContext);
     const {modalActions} = useContext(ModalUpdateContext);
-    const {setList, setAmount} = useContext(ListContext);
+    const { refresh } = useList();
 
 
     const [formUpdate, setState] = useState({
@@ -51,8 +49,8 @@ export function FormUpdateProvider({children}: {children: ReactNode}){
                     setState({...formUpdate, isReady: false})
                     if(res.isSucess){
                         openAlert('sucess', 'Item atualizado');
-                        setList(res.currentList);
-                        setAmount(res.currentAmount)
+                        refresh()
+                        
                     } else {
                         openAlert('warning', res.requestMessage, 2000)
                     }

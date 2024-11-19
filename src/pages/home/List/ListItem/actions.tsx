@@ -1,15 +1,16 @@
 import {BiSolidTrashAlt} from 'react-icons/bi';
 import {AiFillEdit} from 'react-icons/ai';
-import { Action } from './action';
-import { ListContext } from '../../../../context/ListContext';
+import { Action } from './action';;
 import {useContext} from 'react';
 
 import { ModalUpdateContext } from '../../context/modalUpdateItemContext';
 import { UpdateItemContext } from '../../context/updateItemContext';
+import { useList } from '../../../../context/ListContext/hooks/useList';
 
 export function Actions({name, id}: {name: string, id: string, status: string, categorie: string}){
 
-    const {buildActions: listActions} = useContext(ListContext);
+    const { removeItemList } = useList();
+
     const {modalActions} = useContext(ModalUpdateContext);
     const {formUpdateActions} = useContext(UpdateItemContext);
 
@@ -26,7 +27,7 @@ export function Actions({name, id}: {name: string, id: string, status: string, c
 
             <Action 
                 icon = {BiSolidTrashAlt}
-                onActionClick={() => listActions?.removeItem(name)}
+                onActionClick={() => removeItemList(name)}
             />
         </div>
     )
