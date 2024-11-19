@@ -1,12 +1,12 @@
 import Button from "../../../../components/button"
 import { ModalContext } from "../../../../context/ModalContext";
-import { ListContext } from "../../../../context/ListContext";
 import { useContext } from "react";
+import { useList } from "../../../../context/ListContext/hooks/useList";
 
 
 export function Modal(){
     const {modalActions} = useContext(ModalContext);
-    const {buildActions: listActions, isFetching} = useContext(ListContext);
+    const { isLoading, removeCategorie, section} = useList();
     return(
         <div className = {`z-40 top-0  left-0 w-full fixed bg-[rgb(32,32,32,35%)] h-full`}>
             <div className = 'flex justify-center items-center h-full z-40'>
@@ -23,11 +23,11 @@ export function Modal(){
                                 <Button.Label color = 'text-blue-600'label = 'Cancelar'/>
                             </Button.Root>
                             <Button.Root
-                                disabled = {isFetching}
+                                disabled = {isLoading}
                                 style = 'delete'
-                                onAction={() => {
-                                    listActions?.removeCategorieItems();
+                                onAction={async () => {
                                     modalActions.closeModal();
+                                    await removeCategorie(section)
                                     }
                                 }
                             >

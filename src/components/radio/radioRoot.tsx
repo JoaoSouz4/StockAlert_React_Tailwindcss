@@ -3,7 +3,7 @@ import { RadioContext } from "./context/radioContext";
 
 interface RadioRootProps {
     children: ReactNode,
-    state: string
+    state: string | null
 }
 
 export function RadioRoot ({children, state}: RadioRootProps){

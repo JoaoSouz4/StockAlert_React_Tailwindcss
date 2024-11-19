@@ -2,6 +2,8 @@ import { useListContext } from "./useListContext";
 import { ListProps } from "..";
 import { removeOneItem } from "../../../services/api/delete/removeItem";
 import { refreshData } from "./functions/refreshState";
+import { removeCategorieItems } from "../../../services/api/delete/removeCategorieItem";
+
 export function useList() {
     
     const { listStates, setListStates } = useListContext();
@@ -67,6 +69,11 @@ export function useList() {
 
             await removeOneItem(nameItem, listStates.section);
             await refresh()  
+        },
+        removeCategorie: async (section: string) => {
+            setListStates((prevStates) => ({...prevStates, isFetching: true}));
+            await removeCategorieItems(section);
+            await refresh();
         }
     };
 }
